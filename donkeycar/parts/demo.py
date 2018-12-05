@@ -1,10 +1,10 @@
 from donkeycar import Vehicle
-from donkeycar.parts.my_camera import CvImageDisplay, MyCamera
+from donkeycar.parts.structure_sensor_part import CvImageDisplay, MyCamera
 
-V = Vehicle()
-cam = MyCamera(0)
+vehicle_team_3 = Vehicle()
+structure_sensor_part = StructureSensorPart()
 
-V.add(cam, outputs=['camera/image'], threaded=True)
+vehicle_team_3.add(cam, outputs=['camera/image'], threaded=True)
 disp = CvImageDisplay()  # part
-V.add(disp, inputs=["camera/image"])
-V.start()
+vehicle_team_3.add(disp, inputs=["camera/image"])
+vehicle_team_3.start()
