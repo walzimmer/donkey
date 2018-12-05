@@ -6,7 +6,7 @@ import numpy as np
 
 class StructureSensorPart(object):
 
-    def __init__(self, image_w=320, image_h=240):
+    def __init__(self, image_w=320, image_h=240, image_d=2):
         # self.cap = cv2.VideoCapture(camera_idex)
         # self.frame = None
         self.combined_array = None

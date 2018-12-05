@@ -18,6 +18,7 @@ from docopt import docopt
 import donkeycar as dk
 
 #import parts
+from donkeycar.parts.structure_sensor_part import StructureSensorPart
 from donkeycar.parts.transform import Lambda
 from donkeycar.parts.datastore import TubHandler, TubGroup
 from donkeycar.parts.controller import LocalWebController, JoystickController
@@ -26,6 +27,8 @@ import numpy as np
 from donkeycar.parts.throttle_filter import ThrottleFilter
 from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
+from donkeycar.templates.train import multi_train
+
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single'):
     '''
@@ -111,6 +114,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         elif cfg.CAMERA_TYPE == "CVCAM":
             from donkeycar.parts.cv import CvCam
             cam = CvCam(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH)
+        elif cfg.CAMERA_TYPE == "STRUCTURE_CAM":
+            cam = StructureSensorPart(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH)
         else:
             raise(Exception("Unkown camera type: %s" % cfg.CAMERA_TYPE))
             
@@ -489,7 +494,7 @@ if __name__ == '__main__':
         drive(cfg, model_path = args['--model'], use_joystick=args['--js'], model_type=model_type, camera_type=camera_type)
     
     if args['train']:
-        from train import multi_train
+        # from train import multi_train
         
         tub = args['--tub']
         model = args['--model']
