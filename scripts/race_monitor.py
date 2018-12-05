@@ -12,14 +12,16 @@ from docopt import docopt
 import donkeycar as dk
 from donkeycar.parts.controller import LocalWebController, JoystickController
 from donkeycar.parts.datastore import TubHandler, TubGroup
+from donkeycar.parts.structure_sensor_part import StructureSensorPart
 
 import numpy as np
+
 
 def go(cfg):
     '''
     '''
 
-    #Initialize car
+    # Initialize car
     V = dk.vehicle.Vehicle()
 
     print("cfg.CAMERA_TYPE", cfg.CAMERA_TYPE)
@@ -32,9 +34,11 @@ def go(cfg):
     elif cfg.CAMERA_TYPE == "CVCAM":
         from donkeycar.parts.cv import CvCam
         cam = CvCam(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H)
-        
+    elif cfg.CAMERA_TYPE == "STRUCTURE_CAM":
+        cam = StructureSensorPart(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H)
+
     V.add(cam, outputs=['cam/image_array'], threaded=True)
-        
+
     if cfg.CAMERA_TYPE == "CVCAM":
         from donkeycar.parts.cv import CvImageView
         mon = CvImageView()
@@ -50,9 +54,9 @@ def go(cfg):
           threaded=True)
         '''
 
-    inputs=['cam/image_array']
-    types=['image_array']
-   
+    inputs = ['cam/image_array']
+    types = ['image_array']
+
     '''
     th = TubHandler(path=cfg.DATA_PATH)
     tub = th.new_tub_writer(inputs=inputs, types=types)
@@ -66,8 +70,8 @@ def go(cfg):
         ctr.set_tub(tub)
         '''
 
-    #run the vehicle for 20 seconds
-    V.start(rate_hz=cfg.DRIVE_LOOP_HZ, 
+    # run the vehicle for 20 seconds
+    V.start(rate_hz=cfg.DRIVE_LOOP_HZ,
             max_loop_count=cfg.MAX_LOOPS)
 
 
@@ -75,4 +79,3 @@ if __name__ == '__main__':
     args = docopt(__doc__)
     cfg = dk.load_config()
     go(cfg)
-    

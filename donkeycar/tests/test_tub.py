@@ -25,7 +25,8 @@ def test_tub_update_df(tub):
 def test_tub_add_record(tub):
     """Tub can save a record and then retrieve it."""
     import numpy as np
-    img_arr = np.zeros((120,160))
+    #img_arr = np.zeros((120,160))
+    img_arr = np.zeros((240, 320))
     x=123
     y=90
     rec_in  = {'cam/image_array': img_arr, 'user/angle': x, 'user/throttle':y}

@@ -6,7 +6,7 @@ import numpy as np
 
 class StructureSensorPart(object):
 
-    def __init__(self):
+    def __init__(self, image_w=320, image_h=240):
         # self.cap = cv2.VideoCapture(camera_idex)
         # self.frame = None
         self.combined_array = None
@@ -15,15 +15,15 @@ class StructureSensorPart(object):
         openni2.initialize()  # can also accept the path of the OpenNI redistribution
 
         self.dev = openni2.Device.open_any()
-        print(dev.get_device_info())
+        print(self.dev.get_device_info())
 
-        self.ir_stream = dev.create_stream(openni2.SENSOR_IR)
-        print(ir_stream.__dict__)
-        self.depth_stream = dev.create_stream(openni2.SENSOR_DEPTH)
-        print(depth_stream.__dict__)
+        self.ir_stream = self.dev.create_stream(openni2.SENSOR_IR)
+        print(self.ir_stream.__dict__)
+        self.depth_stream = self.dev.create_stream(openni2.SENSOR_DEPTH)
+        print(self.depth_stream.__dict__)
 
-        ir_stream.start()
-        depth_stream.start()
+        self.ir_stream.start()
+        self.depth_stream.start()
 
     def poll(self):
         # ret, self.frame = self.cap.read()
@@ -62,8 +62,8 @@ class StructureSensorPart(object):
         self.running = False
         time.sleep(0.2)
         # self.cap.release()
-        ir_stream.stop()
-        depth_stream.stop()
+        self.ir_stream.stop()
+        self.depth_stream.stop()
         openni2.unload()
 
 
