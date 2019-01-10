@@ -10,7 +10,7 @@ class BaseCamera:
     def run_threaded(self):
         return self.frame
 
-class PiCamera(BaseCamera):
+class PiCamera1(BaseCamera):
 #    def __init__(self, image_w=160, image_h=120, image_d=3, framerate=20):
     def __init__(self, image_w=320, image_h=240, image_d=2, framerate=10):
         from picamera.array import PiRGBArray
