@@ -99,7 +99,7 @@ class PiCamera1(BaseCamera):
             if not self.on:
                 break
          '''
-         while self.running:
+        while self.running:
              self.poll()
              if not self.on:
                break 
