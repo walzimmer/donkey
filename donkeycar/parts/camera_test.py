@@ -13,14 +13,13 @@ class BaseCamera:
 class PiCamera1(BaseCamera):
 #    def __init__(self, image_w=160, image_h=120, image_d=3, framerate=20):
     def __init__(self, image_w=320, image_h=240, image_d=2, framerate=10):
-        from picamera.array import PiRGBArray
-        from picamera import PiCamera
+        #from picamera.array import PiRGBArray
+        #from picamera import PiCamera
         
-        resolution = (image_w, image_h)
+        self.resolution = (image_w, image_h)
         # initialize the camera and stream
-        self.camera = PiCamera() #PiCamera gets resolution (height, width)
-        self.camera.resolution = resolution
-        self.camera.framerate = framerate
+        #self.camera = PiCamera() #PiCamera gets resolution (height, width)
+        self.framerate = framerate
         #self.rawCapture = PiRGBArray(self.camera, size=resolution)
         #self.stream = self.camera.capture_continuous(self.rawCapture,
         #    format="rgb", use_video_port=True)
